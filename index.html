@@ -3,154 +3,584 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SettlePay - Modern Management for Residential Societies</title>
+  <title>SettlePay — Residential Society Billing, WhatsApp Notices & Online Dues</title>
+  <meta
+    name="description"
+    content="Modern management for residential societies. Automated maintenance billing, WhatsApp payment notices, transparent resident receipts, and online collections."
+  />
   <style>
     :root {
-      --primary: #0A84FF;
-      --bg: #0F172A;
-      --card-bg: #1E293B;
-      --text: #F8FAFC;
-      --muted: #94A3B8;
-      --border: #334155;
+      --indigo: #4338ca;
+      --sky: #0284c7;
+      --sky-dark: #0369a1;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --emerald-700: #047857;
+      --emerald-50: #ecfdf5;
+      --white: #ffffff;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
+      color: var(--slate-800);
+      background-color: var(--slate-50);
       line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
     }
+
+    a {
+      color: var(--sky);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
     header {
-      padding: 1.5rem 2rem;
-      border-bottom: 1px solid var(--border);
+      background-color: var(--white);
+      border-bottom: 1px solid var(--slate-200);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav-wrap {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      max-width: 1100px;
-      margin: 0 auto;
-      width: 100%;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding: 14px 0;
     }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #fff;
+
+    .brand {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
-    .logo span { color: var(--primary); }
-    main {
-      flex: 1;
-      max-width: 900px;
-      margin: 4rem auto;
-      padding: 0 1.5rem;
-      text-align: center;
+
+    .brand-settle {
+      color: var(--indigo);
     }
-    h1 {
-      font-size: 2.75rem;
-      line-height: 1.2;
-      font-weight: 800;
-      margin-bottom: 1.25rem;
-      background: linear-gradient(135deg, #FFFFFF 0%, #94A3B8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+
+    .brand-pay {
+      color: var(--sky);
     }
-    p.lead {
-      font-size: 1.2rem;
-      color: var(--muted);
-      margin-bottom: 2.5rem;
-      max-width: 650px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      text-align: left;
-      margin-top: 3rem;
-    }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-    }
-    .card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      color: #fff;
-    }
-    .card p {
-      font-size: 0.95rem;
-      color: var(--muted);
-    }
-    footer {
-      border-top: 1px solid var(--border);
-      background-color: #0b1120;
-      padding: 2.5rem 1.5rem;
-      font-size: 0.875rem;
-      color: var(--muted);
-    }
-    .footer-content {
-      max-width: 1100px;
-      margin: 0 auto;
+
+    nav {
       display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      text-align: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 14px;
+      font-weight: 600;
     }
-    .footer-content a { color: var(--primary); text-decoration: none; }
+
+    nav a {
+      color: var(--slate-600);
+    }
+
+    nav a:hover {
+      color: var(--slate-900);
+      text-decoration: none;
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+      border-bottom: 1px solid var(--slate-200);
+      padding: 64px 0 52px;
+    }
+
     .badge {
       display: inline-block;
-      padding: 0.25rem 0.75rem;
-      background: rgba(10, 132, 255, 0.1);
-      border: 1px solid var(--primary);
-      border-radius: 9999px;
-      font-size: 0.8rem;
-      color: var(--primary);
-      margin-bottom: 1rem;
+      background-color: var(--emerald-50);
+      color: var(--emerald-700);
+      border: 1px solid #a7f3d0;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(30px, 5vw, 44px);
+      font-weight: 900;
+      color: var(--slate-900);
+      line-height: 1.15;
+      letter-spacing: -0.8px;
+      margin-bottom: 16px;
+      max-width: 780px;
+    }
+
+    .hero p {
+      font-size: 17px;
+      color: var(--slate-600);
+      max-width: 680px;
+      margin-bottom: 24px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      background-color: var(--sky);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--sky-dark);
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background-color: var(--white);
+      color: var(--slate-800);
+      border: 1px solid var(--slate-200);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--slate-100);
+      text-decoration: none;
+    }
+
+    /* Sections */
+    section {
+      padding: 52px 0;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      color: var(--slate-600);
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background-color: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 12px;
+      padding: 22px;
+    }
+
+    .card h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 10px;
+    }
+
+    .card ul {
+      padding-left: 18px;
+      color: var(--slate-600);
+      font-size: 14px;
+    }
+
+    .card li {
+      margin-bottom: 8px;
+    }
+
+    .referral-banner {
+      background-color: var(--emerald-50);
+      border: 1px solid #86efac;
+      border-radius: 14px;
+      padding: 24px;
+      margin-top: 20px;
+    }
+
+    .referral-banner h3 {
+      color: #14532d;
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .referral-banner p {
+      color: #15803d;
+      font-size: 14px;
+    }
+
+    /* Policy & Legal Blocks */
+    .legal-section {
+      padding-top: 28px;
+      padding-bottom: 28px;
+    }
+
+    .legal-card {
+      background-color: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 14px;
+      padding: 28px;
+    }
+
+    .legal-card h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 4px;
+    }
+
+    .meta {
+      font-size: 12px;
+      color: var(--slate-500);
+      margin-bottom: 18px;
+    }
+
+    .legal-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--slate-800);
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    .legal-card p,
+    .legal-card li {
+      font-size: 14px;
+      color: var(--slate-600);
+    }
+
+    .legal-card ul {
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+
+    .legal-card li {
+      margin-bottom: 6px;
+    }
+
+    .contact-list {
+      list-style: none;
+      padding-left: 0 !important;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--white);
+      border-top: 1px solid var(--slate-200);
+      padding: 32px 0;
+      margin-top: 32px;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .footer-note {
+      font-size: 12px;
+      color: var(--slate-500);
+      max-width: 560px;
+      margin-top: 8px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 13px;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
-
   <header>
-    <div class="logo">Settle<span>Pay</span></div>
-    <div style="font-size: 0.9rem; color: var(--muted);">Residential Society Platform</div>
+    <div class="container nav-wrap">
+      <a href="#top" class="brand">
+        <span class="brand-settle">Settle</span><span class="brand-pay">Pay</span>
+      </a>
+      <nav aria-label="Primary Navigation">
+        <a href="#features">Features</a>
+        <a href="#terms">Terms</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#refund">Refunds</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <div class="badge">Modern Society Management</div>
-    <h1>Effortless Billing & Utility Notices for Residential Communities</h1>
-    <p class="lead">
-      SettlePay automates maintenance invoices, ledger reconciliation, and instant resident WhatsApp bill alerts with enterprise reliability.
-    </p>
-
-    <div class="features">
-      <div class="card">
-        <h3>📲 WhatsApp Invoicing</h3>
-        <p>Deliver compliant maintenance breakdowns and payment receipts directly to residents' smartphones.</p>
-      </div>
-      <div class="card">
-        <h3>⚡ Real-Time Reconciliation</h3>
-        <p>Comprehensive ledger accounting and transparency designed specifically for housing society committees.</p>
-      </div>
-      <div class="card">
-        <h3>🔒 Security & Privacy</h3>
-        <p>Protected unit records and role-based access for housing society administrators and secretaries.</p>
+  <main id="top">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="container">
+        <span class="badge">SIMPLE • AUTOMATED • TRANSPARENT</span>
+        <h1>Modern Management for Residential Societies</h1>
+        <p>
+          Streamline housing society maintenance billing, send automated WhatsApp bill notices, give residents
+          itemized dues and instant receipts, and reconcile online payments with confidence.
+        </p>
+        <div class="cta-row">
+          <a href="#contact" class="btn-primary">Onboard Your Society</a>
+          <a href="#features" class="btn-secondary">Explore Features</a>
+        </div>
       </div>
     </div>
+
+    <!-- Features -->
+    <section id="features">
+      <div class="container">
+        <h2 class="section-title">Built for Society Committees &amp; Residents</h2>
+        <p class="section-sub">
+          Everything needed for transparent maintenance accounting and hassle-free bill settlement.
+        </p>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>For Society Committees (Admins)</h3>
+            <ul>
+              <li>Generate monthly maintenance bills with clear charge heads (maintenance, sinking fund, repair &amp; maintenance fund, non-occupancy surcharge, and late interest).</li>
+              <li>Send WhatsApp bill notices with resident, flat, amount, and due-date details.</li>
+              <li>Track pending and paid invoices across flats and wings with clear audit logs.</li>
+              <li>Manage society onboarding and subscription plans smoothly.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>For Residents</h3>
+            <ul>
+              <li>View pending dues across single or multiple flats and societies in one place.</li>
+              <li>Expand any bill to see itemized charges, late penalties, and applied wallet credits.</li>
+              <li>Pay single bills or consolidated society dues online via UPI, cards, or netbanking.</li>
+              <li>Download and share payment receipts anytime.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="referral-banner">
+          <h3>Refer &amp; Earn: ₹1 Credit Per Billable Flat</h3>
+          <p>
+            Share your referral code with neighboring housing society committees. When a referred society starts its
+            subscription, earn ₹1 credit per billable flat—applied toward subscription renewals for admins or
+            maintenance dues for residents.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Terms & Conditions -->
+    <section id="terms" class="legal-section">
+      <div class="container">
+        <div class="legal-card">
+          <h2>Terms &amp; Conditions</h2>
+          <p class="meta">Last Updated: November 19, 2026</p>
+          <p>
+            Welcome to <strong>SettlePay</strong> (https://settlepay.co.in/ and the SettlePay application), operated by
+            <strong>[SettlePay / Legal Entity Name]</strong> ("we," "our," or "us"). By accessing or using SettlePay,
+            you agree to be bound by these Terms &amp; Conditions.
+          </p>
+
+          <h3>1. Nature of the Platform</h3>
+          <p>
+            SettlePay provides software tools for housing society managing committees/admins and residents to manage
+            unit records, generate maintenance bills, send WhatsApp notices, view receipts, and initiate online
+            payments. SettlePay is a technology platform and is not a bank, NBFC, or housing society. Billing rules,
+            charge rates, late fees, and exemptions are set by each respective housing society.
+          </p>
+
+          <h3>2. Accounts, Roles &amp; Accuracy of Information</h3>
+          <ul>
+            <li>Users access SettlePay as Society Admins or Society Residents using verified phone details.</li>
+            <li>Society Admins are responsible for the accuracy of society profiles, flat/unit records, resident
+              contact numbers, billing figures, due dates, and payment gateway configurations.</li>
+            <li>Residents are responsible for reviewing flat and invoice details before completing payment.</li>
+          </ul>
+
+          <h3>3. Payments &amp; Gateway Processing</h3>
+          <p>
+            Online payments for society dues or SettlePay subscriptions are processed through third-party payment
+            gateway partners (such as Razorpay). Applicable payment or convenience fees, if any, depend on the selected
+            payment method, and payment settlement is subject to gateway and webhook/callback confirmation.
+          </p>
+
+          <h3>4. Referral &amp; Wallet Credits</h3>
+          <p>
+            Referral rewards and wallet credits follow the terms shown in the app (such as ₹1 credit per billable flat
+            upon a referred society commencing its subscription). Credits have no cash-out value unless explicitly
+            stated and may be adjusted or reversed in cases of error, refund, or policy violation.
+          </p>
+
+          <h3>5. Limitation of Liability &amp; Governing Law</h3>
+          <p>
+            SettlePay is provided on an "as is" and "as available" basis. To the extent permitted by law, we are not
+            liable for indirect damages, third-party messaging or gateway disruptions, or disputes between residents
+            and society committees. These Terms are governed by the laws of India, subject to jurisdiction in
+            <strong>[City/State, e.g., Pune, Maharashtra]</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy Policy -->
+    <section id="privacy" class="legal-section">
+      <div class="container">
+        <div class="legal-card">
+          <h2>Privacy Policy</h2>
+          <p class="meta">Last Updated: November 19, 2026</p>
+          <p>
+            This Privacy Policy describes how <strong>SettlePay</strong> (https://settlepay.co.in/ and the SettlePay
+            application) collects, uses, and safeguards your information.
+          </p>
+
+          <h3>1. Information We Collect</h3>
+          <ul>
+            <li><strong>Contact &amp; Account Info:</strong> Mobile phone numbers, names, email addresses (where provided),
+              and role (Admin or Resident).</li>
+            <li><strong>Society &amp; Billing Data:</strong> Society details, flat/unit numbers, occupancy/unit metadata,
+              maintenance invoices, due dates, payment statuses, wallet credits, and referral records.</li>
+            <li><strong>Transaction &amp; Diagnostic Info:</strong> Order/payment reference IDs, payment mode/channel
+              details, timestamps, and technical logs required to operate and secure the service. Sensitive payment
+              credentials (such as card numbers, UPI PINs, or bank passwords) are handled by the payment gateway and
+              are not stored as raw credentials by SettlePay.</li>
+          </ul>
+
+          <h3>2. How We Use Information</h3>
+          <ul>
+            <li>To authenticate users and send requested WhatsApp messages (such as login OTPs and bill notices).</li>
+            <li>To generate, display, and reconcile maintenance bills, receipts, and subscription statuses.</li>
+            <li>To track referral eligibility and wallet credit balances.</li>
+            <li>To maintain security, prevent duplicate settlements, troubleshoot issues, and comply with applicable law.</li>
+          </ul>
+
+          <h3>3. Sharing, Retention &amp; Security</h3>
+          <p>
+            Relevant unit and billing details are shared within a society's admin and resident workflows, and with
+            infrastructure, messaging, and payment service providers strictly as needed to provide the service. We
+            retain information as needed for service delivery, accounting/audit trails, and legal compliance, and use
+            reasonable technical measures to protect data. Contact us for assistance with profile corrections or data
+            inquiries.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Refund & Cancellation Policy -->
+    <section id="refund" class="legal-section">
+      <div class="container">
+        <div class="legal-card">
+          <h2>Refund &amp; Cancellation Policy</h2>
+          <p class="meta">Last Updated: November 19, 2026</p>
+
+          <h3>1. Society Maintenance Bill Payments (Resident Dues)</h3>
+          <ul>
+            <li>Maintenance dues paid by residents are applied toward invoices issued by their housing society.</li>
+            <li>Any refund, credit adjustment, or reversal of paid society maintenance dues is subject to approval by the
+              respective <strong>housing society managing committee</strong>.</li>
+            <li>If a duplicate payment occurs due to a technical issue, please share the payment/order reference ID and
+              receipt with your society admin and SettlePay support for verification.</li>
+            <li>If an amount is debited for a failed or incomplete transaction, banks/payment gateways generally
+              auto-refund the amount within standard banking timelines (typically 5–7 business days).</li>
+          </ul>
+
+          <h3>2. SettlePay Platform Subscriptions (Society Admins)</h3>
+          <ul>
+            <li>Society admins may choose not to renew a subscription prior to the next billing cycle.</li>
+            <li>Unless agreed otherwise in writing, fees paid for an active subscription period (monthly or annual) are
+              non-refundable for unused portions of that period.</li>
+            <li>For suspected duplicate or erroneous subscription charges, contact us within
+              <strong>[7 days]</strong> of the charge with your society name and payment reference ID.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact / Support -->
+    <section id="contact" class="legal-section">
+      <div class="container">
+        <div class="legal-card">
+          <h2>Contact &amp; Support</h2>
+          <p class="meta">We’re here to help housing society committees and residents</p>
+          <p>
+            Reach out to us for society onboarding, WhatsApp billing notices, payment/receipt questions, or account
+            support:
+          </p>
+          <ul class="contact-list" style="margin-top: 14px;">
+            <li><strong>Email:</strong> <a href="mailto:support@settlepay.co.in">support@settlepay.co.in</a></li>
+            <li><strong>Phone / WhatsApp Support:</strong> +91-XXXXXXXXXX <em>([e.g., Mon–Sat, 10:00 AM – 6:00 PM IST])</em></li>
+            <li><strong>Website:</strong> <a href="https://settlepay.co.in/">https://settlepay.co.in/</a></li>
+            <li><strong>Address:</strong> [Insert Registered Street Address, City, PIN Code, Maharashtra, India]</li>
+          </ul>
+          <p style="margin-top: 14px;">
+            <strong>Tip for faster resolution:</strong> Please include your name, role (Admin or Resident), registered
+            mobile number, society/flat number, and bill or payment reference ID if applicable.
+          </p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
-    <div class="footer-content">
-      <p><strong>Legal Entity:</strong> SettlePay (Registered MSME, Government of India)</p>
-      <p><strong>Support & Inquiries:</strong> <a href="mailto:admin@settlepay.co.in">admin@settlepay.co.in</a></p>
-      <p>&copy; 2026 SettlePay. All rights reserved.</p>
+    <div class="container footer-inner">
+      <div>
+        <div class="brand" style="font-size: 18px;">
+          <span class="brand-settle">Settle</span><span class="brand-pay">Pay</span>
+        </div>
+        <p class="footer-note">
+          <strong>SettlePay</strong> Technologies. Society maintenance invoicing, automated WhatsApp notifications, and
+          online payment reconciliation.
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="#terms">Terms &amp; Conditions</a>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#refund">Refund &amp; Cancellation</a>
+        <a href="#contact">Contact / Support</a>
+      </div>
     </div>
   </footer>
-
 </body>
 </html>
