@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SettlePay — Residential Society Billing, WhatsApp Notices & Online Dues</title>
+  <title>SettlePay — Residential Society Billing, WhatsApp Notices &amp; Online Dues</title>
   <meta
     name="description"
     content="Modern management for residential societies. Automated maintenance billing, WhatsApp payment notices, transparent resident receipts, and online collections."
   />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
   <style>
     :root {
       --indigo: #4338ca;
@@ -58,7 +59,6 @@
       padding: 0 20px;
     }
 
-    /* Header */
     header {
       background-color: var(--white);
       border-bottom: 1px solid var(--slate-200);
@@ -85,13 +85,8 @@
       gap: 6px;
     }
 
-    .brand-settle {
-      color: var(--indigo);
-    }
-
-    .brand-pay {
-      color: var(--sky);
-    }
+    .brand-settle { color: var(--indigo); }
+    .brand-pay { color: var(--sky); }
 
     nav {
       display: flex;
@@ -102,16 +97,9 @@
       font-weight: 600;
     }
 
-    nav a {
-      color: var(--slate-600);
-    }
+    nav a { color: var(--slate-600); }
+    nav a:hover { color: var(--slate-900); text-decoration: none; }
 
-    nav a:hover {
-      color: var(--slate-900);
-      text-decoration: none;
-    }
-
-    /* Hero */
     .hero {
       background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
       border-bottom: 1px solid var(--slate-200);
@@ -161,6 +149,8 @@
       font-weight: 700;
       font-size: 14px;
       display: inline-block;
+      border: none;
+      cursor: pointer;
     }
 
     .btn-primary:hover {
@@ -177,6 +167,7 @@
       font-weight: 700;
       font-size: 14px;
       display: inline-block;
+      cursor: pointer;
     }
 
     .btn-secondary:hover {
@@ -184,10 +175,7 @@
       text-decoration: none;
     }
 
-    /* Sections */
-    section {
-      padding: 52px 0;
-    }
+    section { padding: 52px 0; }
 
     .section-title {
       font-size: 24px;
@@ -228,9 +216,7 @@
       font-size: 14px;
     }
 
-    .card li {
-      margin-bottom: 8px;
-    }
+    .card li { margin-bottom: 8px; }
 
     .referral-banner {
       background-color: var(--emerald-50);
@@ -252,61 +238,124 @@
       font-size: 14px;
     }
 
-    /* Policy & Legal Blocks */
-    .legal-section {
-      padding-top: 28px;
-      padding-bottom: 28px;
-    }
-
-    .legal-card {
+    .contact-card {
       background-color: var(--white);
       border: 1px solid var(--slate-200);
       border-radius: 14px;
       padding: 28px;
     }
 
-    .legal-card h2 {
-      font-size: 22px;
+    .contact-list {
+      list-style: none;
+      margin-top: 14px;
+    }
+
+    .contact-list li {
+      font-size: 14px;
+      color: var(--slate-600);
+      margin-bottom: 8px;
+    }
+
+    /* QR Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(15, 23, 42, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 50;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-panel {
+      background-color: var(--white);
+      border-radius: 16px;
+      max-width: 620px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.25);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .modal-header h2 {
+      font-size: 21px;
+      font-weight: 900;
+      color: var(--slate-900);
+    }
+
+    .close-modal-btn {
+      background-color: var(--slate-100);
+      color: var(--slate-700);
+      border: none;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .modal-sub {
+      font-size: 14px;
+      color: var(--slate-600);
+      margin-bottom: 20px;
+    }
+
+    .qr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .qr-box {
+      border: 1px solid var(--slate-200);
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+      background-color: var(--slate-50);
+    }
+
+    .qr-box h3 {
+      font-size: 16px;
       font-weight: 800;
       color: var(--slate-900);
       margin-bottom: 4px;
     }
 
-    .meta {
+    .qr-box p {
       font-size: 12px;
       color: var(--slate-500);
-      margin-bottom: 18px;
+      margin-bottom: 12px;
     }
 
-    .legal-card h3 {
-      font-size: 15px;
+    .qr-canvas-wrap {
+      display: inline-flex;
+      padding: 10px;
+      background-color: var(--white);
+      border: 1px solid var(--slate-200);
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .qr-link {
+      display: inline-block;
+      font-size: 12px;
       font-weight: 700;
-      color: var(--slate-800);
-      margin-top: 16px;
-      margin-bottom: 6px;
+      color: var(--sky);
+      word-break: break-all;
     }
 
-    .legal-card p,
-    .legal-card li {
-      font-size: 14px;
-      color: var(--slate-600);
-    }
-
-    .legal-card ul {
-      padding-left: 18px;
-      margin-top: 6px;
-    }
-
-    .legal-card li {
-      margin-bottom: 6px;
-    }
-
-    .contact-list {
-      list-style: none;
-      padding-left: 0 !important;
-    }
-
-    /* Footer */
     footer {
       background-color: var(--white);
       border-top: 1px solid var(--slate-200);
@@ -341,21 +390,20 @@
 <body>
   <header>
     <div class="container nav-wrap">
-      <a href="#top" class="brand">
+      <a href="index.html" class="brand">
         <span class="brand-settle">Settle</span><span class="brand-pay">Pay</span>
       </a>
       <nav aria-label="Primary Navigation">
         <a href="#features">Features</a>
-        <a href="#terms">Terms</a>
-        <a href="#privacy">Privacy</a>
-        <a href="#refund">Refunds</a>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="refund.html">Refunds</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <main id="top">
-    <!-- Hero -->
+  <main>
     <div class="hero">
       <div class="container">
         <span class="badge">SIMPLE • AUTOMATED • TRANSPARENT</span>
@@ -365,13 +413,14 @@
           itemized dues and instant receipts, and reconcile online payments with confidence.
         </p>
         <div class="cta-row">
-          <a href="#contact" class="btn-primary">Onboard Your Society</a>
+          <button type="button" id="openOnboardQrBtn" class="btn-primary">
+            Onboard Your Society
+          </button>
           <a href="#features" class="btn-secondary">Explore Features</a>
         </div>
       </div>
     </div>
 
-    <!-- Features -->
     <section id="features">
       <div class="container">
         <h2 class="section-title">Built for Society Committees &amp; Residents</h2>
@@ -412,156 +461,64 @@
       </div>
     </section>
 
-    <!-- Terms & Conditions -->
-    <section id="terms" class="legal-section">
+    <section id="contact">
       <div class="container">
-        <div class="legal-card">
-          <h2>Terms &amp; Conditions</h2>
-          <p class="meta">Last Updated: November 19, 2026</p>
-          <p>
-            Welcome to <strong>SettlePay</strong> (https://settlepay.co.in/ and the SettlePay application), operated by
-            <strong>[SettlePay / Legal Entity Name]</strong> ("we," "our," or "us"). By accessing or using SettlePay,
-            you agree to be bound by these Terms &amp; Conditions.
+        <div class="contact-card">
+          <h2 class="section-title">Contact &amp; Support</h2>
+          <p class="section-sub" style="margin-bottom: 8px;">
+            Reach out to us for society onboarding, WhatsApp billing notices, payment/receipt questions, or account support:
           </p>
-
-          <h3>1. Nature of the Platform</h3>
-          <p>
-            SettlePay provides software tools for housing society managing committees/admins and residents to manage
-            unit records, generate maintenance bills, send WhatsApp notices, view receipts, and initiate online
-            payments. SettlePay is a technology platform and is not a bank, NBFC, or housing society. Billing rules,
-            charge rates, late fees, and exemptions are set by each respective housing society.
-          </p>
-
-          <h3>2. Accounts, Roles &amp; Accuracy of Information</h3>
-          <ul>
-            <li>Users access SettlePay as Society Admins or Society Residents using verified phone details.</li>
-            <li>Society Admins are responsible for the accuracy of society profiles, flat/unit records, resident
-              contact numbers, billing figures, due dates, and payment gateway configurations.</li>
-            <li>Residents are responsible for reviewing flat and invoice details before completing payment.</li>
-          </ul>
-
-          <h3>3. Payments &amp; Gateway Processing</h3>
-          <p>
-            Online payments for society dues or SettlePay subscriptions are processed through third-party payment
-            gateway partners (such as Razorpay). Applicable payment or convenience fees, if any, depend on the selected
-            payment method, and payment settlement is subject to gateway and webhook/callback confirmation.
-          </p>
-
-          <h3>4. Referral &amp; Wallet Credits</h3>
-          <p>
-            Referral rewards and wallet credits follow the terms shown in the app (such as ₹1 credit per billable flat
-            upon a referred society commencing its subscription). Credits have no cash-out value unless explicitly
-            stated and may be adjusted or reversed in cases of error, refund, or policy violation.
-          </p>
-
-          <h3>5. Limitation of Liability &amp; Governing Law</h3>
-          <p>
-            SettlePay is provided on an "as is" and "as available" basis. To the extent permitted by law, we are not
-            liable for indirect damages, third-party messaging or gateway disruptions, or disputes between residents
-            and society committees. These Terms are governed by the laws of India, subject to jurisdiction in
-            <strong>[City/State, e.g., Pune, Maharashtra]</strong>.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Privacy Policy -->
-    <section id="privacy" class="legal-section">
-      <div class="container">
-        <div class="legal-card">
-          <h2>Privacy Policy</h2>
-          <p class="meta">Last Updated: November 19, 2026</p>
-          <p>
-            This Privacy Policy describes how <strong>SettlePay</strong> (https://settlepay.co.in/ and the SettlePay
-            application) collects, uses, and safeguards your information.
-          </p>
-
-          <h3>1. Information We Collect</h3>
-          <ul>
-            <li><strong>Contact &amp; Account Info:</strong> Mobile phone numbers, names, email addresses (where provided),
-              and role (Admin or Resident).</li>
-            <li><strong>Society &amp; Billing Data:</strong> Society details, flat/unit numbers, occupancy/unit metadata,
-              maintenance invoices, due dates, payment statuses, wallet credits, and referral records.</li>
-            <li><strong>Transaction &amp; Diagnostic Info:</strong> Order/payment reference IDs, payment mode/channel
-              details, timestamps, and technical logs required to operate and secure the service. Sensitive payment
-              credentials (such as card numbers, UPI PINs, or bank passwords) are handled by the payment gateway and
-              are not stored as raw credentials by SettlePay.</li>
-          </ul>
-
-          <h3>2. How We Use Information</h3>
-          <ul>
-            <li>To authenticate users and send requested WhatsApp messages (such as login OTPs and bill notices).</li>
-            <li>To generate, display, and reconcile maintenance bills, receipts, and subscription statuses.</li>
-            <li>To track referral eligibility and wallet credit balances.</li>
-            <li>To maintain security, prevent duplicate settlements, troubleshoot issues, and comply with applicable law.</li>
-          </ul>
-
-          <h3>3. Sharing, Retention &amp; Security</h3>
-          <p>
-            Relevant unit and billing details are shared within a society's admin and resident workflows, and with
-            infrastructure, messaging, and payment service providers strictly as needed to provide the service. We
-            retain information as needed for service delivery, accounting/audit trails, and legal compliance, and use
-            reasonable technical measures to protect data. Contact us for assistance with profile corrections or data
-            inquiries.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Refund & Cancellation Policy -->
-    <section id="refund" class="legal-section">
-      <div class="container">
-        <div class="legal-card">
-          <h2>Refund &amp; Cancellation Policy</h2>
-          <p class="meta">Last Updated: November 19, 2026</p>
-
-          <h3>1. Society Maintenance Bill Payments (Resident Dues)</h3>
-          <ul>
-            <li>Maintenance dues paid by residents are applied toward invoices issued by their housing society.</li>
-            <li>Any refund, credit adjustment, or reversal of paid society maintenance dues is subject to approval by the
-              respective <strong>housing society managing committee</strong>.</li>
-            <li>If a duplicate payment occurs due to a technical issue, please share the payment/order reference ID and
-              receipt with your society admin and SettlePay support for verification.</li>
-            <li>If an amount is debited for a failed or incomplete transaction, banks/payment gateways generally
-              auto-refund the amount within standard banking timelines (typically 5–7 business days).</li>
-          </ul>
-
-          <h3>2. SettlePay Platform Subscriptions (Society Admins)</h3>
-          <ul>
-            <li>Society admins may choose not to renew a subscription prior to the next billing cycle.</li>
-            <li>Unless agreed otherwise in writing, fees paid for an active subscription period (monthly or annual) are
-              non-refundable for unused portions of that period.</li>
-            <li>For suspected duplicate or erroneous subscription charges, contact us within
-              <strong>[7 days]</strong> of the charge with your society name and payment reference ID.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact / Support -->
-    <section id="contact" class="legal-section">
-      <div class="container">
-        <div class="legal-card">
-          <h2>Contact &amp; Support</h2>
-          <p class="meta">We’re here to help housing society committees and residents</p>
-          <p>
-            Reach out to us for society onboarding, WhatsApp billing notices, payment/receipt questions, or account
-            support:
-          </p>
-          <ul class="contact-list" style="margin-top: 14px;">
+          <ul class="contact-list">
             <li><strong>Email:</strong> <a href="mailto:support@settlepay.co.in">support@settlepay.co.in</a></li>
             <li><strong>Phone / WhatsApp Support:</strong> +91-XXXXXXXXXX <em>([e.g., Mon–Sat, 10:00 AM – 6:00 PM IST])</em></li>
             <li><strong>Website:</strong> <a href="https://settlepay.co.in/">https://settlepay.co.in/</a></li>
             <li><strong>Address:</strong> [Insert Registered Street Address, City, PIN Code, Maharashtra, India]</li>
           </ul>
-          <p style="margin-top: 14px;">
-            <strong>Tip for faster resolution:</strong> Please include your name, role (Admin or Resident), registered
-            mobile number, society/flat number, and bill or payment reference ID if applicable.
-          </p>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- App Download QR Modal for "Onboard Your Society" -->
+  <div id="onboardQrModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="qrModalTitle">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h2 id="qrModalTitle">Download SettlePay to Onboard Your Society</h2>
+        <button type="button" id="closeOnboardQrBtn" class="close-modal-btn">✕ Close</button>
+      </div>
+      <p class="modal-sub">
+        Scan either QR code with your phone camera to download the SettlePay app for Android or iOS and start setting up your housing society.
+      </p>
+
+      <div class="qr-grid">
+        <div class="qr-box">
+          <h3>Android App</h3>
+          <p>Google Play / Android Package</p>
+          <div class="qr-canvas-wrap">
+            <canvas id="androidQrCanvas"></canvas>
+          </div>
+          <div>
+            <a id="androidDownloadLink" href="#" target="_blank" rel="noopener noreferrer" class="qr-link">
+              Open Android Link
+            </a>
+          </div>
+        </div>
+
+        <div class="qr-box">
+          <h3>iOS App</h3>
+          <p>Apple App Store / iOS Build</p>
+          <div class="qr-canvas-wrap">
+            <canvas id="iosQrCanvas"></canvas>
+          </div>
+          <div>
+            <a id="iosDownloadLink" href="#" target="_blank" rel="noopener noreferrer" class="qr-link">
+              Open iOS Link
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer>
     <div class="container footer-inner">
@@ -575,12 +532,50 @@
         </p>
       </div>
       <div class="footer-links">
-        <a href="#terms">Terms &amp; Conditions</a>
-        <a href="#privacy">Privacy Policy</a>
-        <a href="#refund">Refund &amp; Cancellation</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="refund.html">Refund &amp; Cancellation</a>
         <a href="#contact">Contact / Support</a>
       </div>
     </div>
   </footer>
+
+  <script>
+    // Replace these URLs with your live Play Store & App Store / download links
+    const ANDROID_APP_URL = "https://settlepay.co.in/app/android";
+    const IOS_APP_URL = "https://settlepay.co.in/app/ios";
+
+    const modal = document.getElementById("onboardQrModal");
+    const openBtn = document.getElementById("openOnboardQrBtn");
+    const closeBtn = document.getElementById("closeOnboardQrBtn");
+    const androidLink = document.getElementById("androidDownloadLink");
+    const iosLink = document.getElementById("iosDownloadLink");
+
+    androidLink.href = ANDROID_APP_URL;
+    iosLink.href = IOS_APP_URL;
+
+    let qrRendered = false;
+    function renderQrCodes() {
+      if (qrRendered || typeof QRCode === "undefined") return;
+      QRCode.toCanvas(document.getElementById("androidQrCanvas"), ANDROID_APP_URL, { width: 150 });
+      QRCode.toCanvas(document.getElementById("iosQrCanvas"), IOS_APP_URL, { width: 150 });
+      qrRendered = true;
+    }
+
+    openBtn.addEventListener("click", () => {
+      modal.classList.add("open");
+      renderQrCodes();
+    });
+
+    closeBtn.addEventListener("click", () => {
+      modal.classList.remove("open");
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.remove("open");
+      }
+    });
+  </script>
 </body>
 </html>
